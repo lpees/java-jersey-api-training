@@ -19,9 +19,9 @@ public class UsuarioDao {
 			PreparedStatement inserir = conexaoOracle.prepareStatement(sql.toString());
 
 			inserir.setString(1, usuario.getNome());
-			inserir.setString(1, usuario.getSobrenome());
-			inserir.setString(1, usuario.getEmail());
-			inserir.setLong(1, usuario.getCPF());
+			inserir.setString(2, usuario.getSobrenome());
+			inserir.setString(3, usuario.getEmail());
+			inserir.setLong(4, usuario.getCPF());
 
 			inserir.executeUpdate();
 
