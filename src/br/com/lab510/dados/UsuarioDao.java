@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import br.com.lab510.modelos.Usuario;
+
 public class UsuarioDao {
 
 	public void salvaUsuarioNaBase(Usuario usuario) {
@@ -21,7 +23,7 @@ public class UsuarioDao {
 			inserir.setString(1, usuario.getNome());
 			inserir.setString(2, usuario.getSobrenome());
 			inserir.setString(3, usuario.getEmail());
-			inserir.setLong(4, usuario.getCPF());
+			inserir.setLong(4, usuario.getCpf());
 
 			inserir.executeUpdate();
 
