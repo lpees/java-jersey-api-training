@@ -29,7 +29,11 @@ public class UsuarioDao {
 
 			conexaoOracle.commit();
 		} catch (SQLException e) {
-			conexaoOracle.rollback();
+			try {
+				conexaoOracle.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} finally {
 			if (conexaoOracle != null)

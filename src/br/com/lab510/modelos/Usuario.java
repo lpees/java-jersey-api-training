@@ -5,6 +5,14 @@ public class Usuario {
 	private String nome, sobrenome, email;
 	private long cpf;
 
+	public long getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(long cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -28,15 +36,6 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-	
 	
 
 }
