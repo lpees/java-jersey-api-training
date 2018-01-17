@@ -3,7 +3,15 @@ package br.com.lab510.modelos;
 public class Usuario {
 	
 	private String nome, sobrenome, email;
-	private long cpf;
+	private long id, cpf;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public long getCpf() {
 		return cpf;
