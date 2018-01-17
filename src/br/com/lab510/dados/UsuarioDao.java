@@ -2,7 +2,9 @@ package br.com.lab510.dados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import br.com.lab510.modelos.Usuario;
 
@@ -42,9 +44,41 @@ public class UsuarioDao {
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-
 		}
+	}
+	
+	public Usuario buscaUsuarioNaBase(Long id){
+		Connection conexaoOracle = Conexao.abreConexaoComOBanco();
+		
+		try {
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * ");
+			sql.append("FROM USUARIO ");
+			sql.append("WHERE ID = ?");
+			
+			PreparedStatement consultar = conexaoOracle.prepareStatement(sql.toString());
+			consultar.setLong(1, id);
+			
+			ResultSet resultadoDaConsulta = consultar.executeQuery();
+			Usuario usuario = null;
+			
+			if(resultadoDaConsulta.next()) {
+				usuario = new Usuario();
+				usuario.setNome(resultadoDaConsulta.getString("nome"));
+				usuario.setSobrenome(resultadoDaConsulta.getString("sobrenome"));
+				usuario.setEmail(resultadoDaConsulta.getString("email"));
+				usuario.setCpf(resultadoDaConsulta.getLong("cpf"));
+			}
+			
+			return usuario;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		}
+		
+		
 	}
 
 }
