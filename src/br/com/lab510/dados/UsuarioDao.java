@@ -64,10 +64,11 @@ public class UsuarioDao {
 			
 			if(resultadoDaConsulta.next()) {
 				usuario = new Usuario();
-				usuario.setNome(resultadoDaConsulta.getString("nome"));
-				usuario.setSobrenome(resultadoDaConsulta.getString("sobrenome"));
-				usuario.setEmail(resultadoDaConsulta.getString("email"));
-				usuario.setCpf(resultadoDaConsulta.getLong("cpf"));
+				usuario.setId(resultadoDaConsulta.getLong("ID"));
+				usuario.setNome(resultadoDaConsulta.getString("NOME"));
+				usuario.setSobrenome(resultadoDaConsulta.getString("SOBRENOME"));
+				usuario.setEmail(resultadoDaConsulta.getString("EMAIL"));
+				usuario.setCpf(resultadoDaConsulta.getLong("CPF"));
 			}
 			
 			return usuario;
