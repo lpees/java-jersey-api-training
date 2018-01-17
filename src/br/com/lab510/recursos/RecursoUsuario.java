@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import com.google.gson.Gson;
 
+import br.com.lab510.dados.UsuarioDao;
 import br.com.lab510.modelos.Usuario;
 
 @Path("usuario")
@@ -18,12 +19,13 @@ public class RecursoUsuario {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseBuilder adicionarUsuario (String conteudo) {
+	public Response adicionarUsuario (String conteudo) {
 		Usuario usuario = new Gson().fromJson(conteudo, Usuario.class);
+		new UsuarioDao().salvaUsuarioNaBase(usuario);
 		
 		
-		URI url = URI.create("/usuario/");
-		return Response.created(url);
+		URI url = URI.create("/usuario/" + usuario.getId());
+		return Response.created(url).build();
 	}
 
 }
