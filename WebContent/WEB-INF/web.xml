@@ -9,4 +9,19 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+     <servlet-name>Jersey Web Application</servlet-name>
+     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+     <init-param>
+         <param-name>jersey.config.server.provider.packages</param-name>
+         <param-value>br.com.lab510.recursos</param-value>
+     </init-param>
+     <load-on-startup>1</load-on-startup>
+  </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/v1/*</url-pattern>
+    </servlet-mapping>
 </web-app>
