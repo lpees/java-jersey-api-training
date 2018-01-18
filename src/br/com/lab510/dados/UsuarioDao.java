@@ -49,17 +49,17 @@ public class UsuarioDao {
 		}
 	}
 	
-	public Usuario buscaUsuarioNaBase(Long id){
+	public static Usuario buscaUsuarioNaBase(Long cpf){
 		Connection conexaoOracle = Conexao.abreConexaoComOBanco();
 		
 		try {
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * ");
 			sql.append("FROM USUARIO ");
-			sql.append("WHERE ID = ?");
+			sql.append("WHERE CPF = ?");
 			
 			PreparedStatement consultar = conexaoOracle.prepareStatement(sql.toString());
-			consultar.setLong(1, id);
+			consultar.setLong(1, cpf);
 			
 			ResultSet resultadoDaConsulta = consultar.executeQuery();
 			Usuario usuario = null;

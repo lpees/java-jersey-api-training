@@ -23,8 +23,9 @@ public class RecursoUsuario {
 		Usuario usuario = new Gson().fromJson(conteudo, Usuario.class);
 		new UsuarioDao().salvaUsuarioNaBase(usuario);
 		
+		Usuario usuarioCriado = UsuarioDao.buscaUsuarioNaBase(usuario.getCpf());
 		
-		URI url = URI.create("/usuario/" + usuario.getId());
+		URI url = URI.create("/usuario/LAB510/v1/" + usuarioCriado.getId());
 		return Response.created(url).build();
 	}
 
