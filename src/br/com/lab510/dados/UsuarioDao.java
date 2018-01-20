@@ -17,8 +17,8 @@ public class UsuarioDao {
 			conexaoOracle.setAutoCommit(false);
 			StringBuilder sql = new StringBuilder();
 			sql.append("INSERT INTO USUARIO(");
-			sql.append("ID, NOME, SOBRENOME, EMAIL, CPF)");
-			sql.append("VALUES (SQC_ID.NEXTVAL, ?, ?, ?, ?)");
+			sql.append("NOME, SOBRENOME, EMAIL, CPF)");
+			sql.append("VALUES (?, ?, ?, ?)");
 			
 			System.out.println(sql.toString());
 
