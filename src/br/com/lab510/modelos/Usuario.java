@@ -2,9 +2,9 @@ package br.com.lab510.modelos;
 
 public class Usuario {
 	
-	private String nome, sobrenome, email;
 	private long id, cpf;
-
+	private String nome, sobrenome, email;
+	
 	public long getId() {
 		return id;
 	}
