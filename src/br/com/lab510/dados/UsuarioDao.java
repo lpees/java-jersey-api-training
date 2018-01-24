@@ -19,8 +19,6 @@ public class UsuarioDao {
 			sql.append("INSERT INTO USUARIO(");
 			sql.append("NOME, SOBRENOME, EMAIL, CPF)");
 			sql.append("VALUES (?, ?, ?, ?)");
-			
-			System.out.println(sql.toString());
 
 			PreparedStatement inserir = conexaoMysql.prepareStatement(sql.toString());
 
@@ -53,6 +51,7 @@ public class UsuarioDao {
 		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
 		
 		try {
+			conexaoMysql.setAutoCommit(false);
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * ");
 			sql.append("FROM USUARIO ");
@@ -86,6 +85,7 @@ public class UsuarioDao {
 		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
 		
 		try {
+			conexaoMysql.setAutoCommit(false);
 			StringBuilder sql = new StringBuilder();
 			sql.append("SELECT * ");
 			sql.append("FROM USUARIO ");
@@ -99,7 +99,7 @@ public class UsuarioDao {
 			Usuario usuario = null;
 			
 			if(resultadoDaConsulta.next()) {
-				 usuario = new Usuario();
+				usuario = new Usuario();
 				usuario.setId(resultadoDaConsulta.getLong("ID"));
 				usuario.setNome(resultadoDaConsulta.getString("NOME"));
 				usuario.setSobrenome(resultadoDaConsulta.getString("SOBRENOME"));
@@ -121,6 +121,77 @@ public class UsuarioDao {
 					e2.printStackTrace();
 				}
 			}			
+	}
+	
+	public static void deletaUsuarioDaBase (long id) {
+		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		
+		try {
+			conexaoMysql.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append("DELETE FROM ");
+			sql.append("USUARIO ");
+			sql.append("WHERE ID = ?");
+			
+			PreparedStatement deletar = conexaoMysql.prepareStatement(sql.toString());
+			deletar.setLong(1, id);
+			
+			deletar.executeUpdate();
+			
+			conexaoMysql.commit();			
+		}catch (SQLException e) {
+			try {
+				conexaoMysql.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}finally {
+			try {
+				conexaoMysql.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void atualizaUsuarioNaBase (Long id, Usuario usuario) {
+		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		
+		try {
+			conexaoMysql.setAutoCommit(false);
+			StringBuilder sql = new StringBuilder();
+			sql.append("UPDATE USUARIO ");
+			sql.append("SET NOME = ?, ");
+			sql.append("SOBRENOME = ?, ");
+			sql.append("EMAIL = ?, ");
+			sql.append("CPF = ? ");			
+			sql.append("WHERE ID = ?;");
+			
+			PreparedStatement atualizar = conexaoMysql.prepareStatement(sql.toString());
+			atualizar.setString(1, usuario.getNome());
+			atualizar.setString(2, usuario.getSobrenome());
+			atualizar.setString(3, usuario.getEmail());
+			atualizar.setLong(4, usuario.getCpf());
+			atualizar.setLong(5, id);
+			
+			atualizar.executeUpdate();
+			
+			conexaoMysql.commit();
+		}catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conexaoMysql.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}finally {
+			try {
+				conexaoMysql.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
 

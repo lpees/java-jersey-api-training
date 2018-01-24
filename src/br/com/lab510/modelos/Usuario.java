@@ -45,5 +45,10 @@ public class Usuario {
 		this.email = email;
 	}
 	
+	@Override
+	public String toString() {
+		return "ID: " + getId() + "Nome: " + getNome() + "Sobrenome: " + getSobrenome() + "Email: " + getEmail() + "CPF: " + getCpf() ;
+	}
+	
 
 }
