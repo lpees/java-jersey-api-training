@@ -40,7 +40,7 @@ public class RecursoUsuario {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String buscaUsuario (@PathParam("id") Long id) {
 		Usuario usuario = UsuarioDao.buscaUsuarioNaBase(id);
-		System.out.println("certo");
+		
 		String usuarioJson = new Gson().toJson(usuario);
 		
 		return usuarioJson;
