@@ -4,20 +4,10 @@ public class Mensagem {
 	
 	private int codeId;
 	private String texto;
-	private String token;
 	
 	public Mensagem(int codeId, String texto) {
 		this.codeId = codeId;
 		this.texto = texto;
-	}
-	
-	
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 	
 	public int getCodeId() {

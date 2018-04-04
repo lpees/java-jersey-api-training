@@ -51,7 +51,7 @@ public class SenhaDao {
 		}
 	}
 	
-	public static String buscaSenhaNaBase (long idUsuario) {
+	public static String buscaSenhaNaBase (long cpf) {
 		Connection conn = Conexoes.abreConexaoComOBanco();
 		StringBuilder sql = new StringBuilder();
 		
@@ -59,10 +59,10 @@ public class SenhaDao {
 			conn.setAutoCommit(false);
 			sql.append("SELECT * ");
 			sql.append("FROM LOGIN ");
-			sql.append("WHERE ID_USUARIO = ?");
+			sql.append("WHERE CPF = ?");
 			
 			PreparedStatement consultar = conn.prepareStatement(sql.toString());
-			consultar.setLong(1, idUsuario);
+			consultar.setLong(1, cpf);
 			
 			ResultSet resultadoDaConsulta = consultar.executeQuery();
 			String hashSenha = null;

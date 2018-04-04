@@ -9,7 +9,7 @@ import br.com.lab510.modelos.Login;
 
 public class TokenDao {
 	
-	public static void salvaTokenNaBase(long id, String token) {
+	public static void salvaTokenNaBase(String token) {
 
 		Connection conn = Conexoes.abreConexaoComOBanco();
 
@@ -18,13 +18,12 @@ public class TokenDao {
 			StringBuilder sql = new StringBuilder();
 
 			sql.append("INSERT INTO TOKEN(");
-			sql.append("IDUSUARIO, TOKEN)");
-			sql.append("VALUES (?, ?)");
+			sql.append("TOKEN)");
+			sql.append("VALUES (?)");
 
 			PreparedStatement inserir = conn.prepareStatement(sql.toString());
-			
-			inserir.setLong(1, id);
-			inserir.setString(2, token);
+			;
+			inserir.setString(1, token);
 
 			inserir.executeUpdate();
 

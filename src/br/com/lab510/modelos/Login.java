@@ -7,9 +7,9 @@ public class Login {
 	private String email;	
 	private String senha;
 	
-	public Login(long idUsuario, String email, String senha) {
+	public Login(long idUsuario, long cpf, String senha) {
 		this.idUsuario = idUsuario;
-		this.email = email;
+		this.cpf = cpf;
 		this.senha = senha;
 	}
 	

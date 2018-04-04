@@ -24,36 +24,27 @@ import br.com.lab510.modelos.Mensagem;
 @Path("autenticacao")
 public class RecursoAutenticacao {
 	
-	String token = Gerator.token();
-	Mensagem mensagem = null;
-	HttpSession sessao = null;
-	NewCookie cookie = null;
-
-	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response autenticacaoLogin (String conteudo) {		
+		
 		Login login = new Gson().fromJson(conteudo, Login.class);
-		Long idUsuario = UsuarioDao.buscaIdDoUsuarioNaBase(login.getCpf());
 		
-		boolean senhaVerificada = AutenticaLogin.verificaSenha(idUsuario, login.getSenha());
+		boolean senhaVerificada = AutenticaLogin.verificaSenha(login.getCpf(), login.getSenha());
 		
+		String token = Gerator.token();
+		Mensagem mensagem = null;
+		NewCookie cookie = null;
 		
 			if(senhaVerificada) {
-			sessao.setAttribute("usuario", token);
-			sessao.setMaxInactiveInterval(30*60);
 			cookie = new NewCookie("SSID", token);
-			
+			TokenDao.salvaTokenNaBase(token);
 			mensagem = new Mensagem(0, "Login efetuado com sucesso");
-			mensagem.setToken(token);
 			
-			TokenDao.salvaTokenNaBase(idUsuario, token);	
 			
 		}else {
-			
 			mensagem = new Mensagem(1, "Login ou senha invalido");
-			mensagem.setToken(null);
 		}
 		
 		return Response.ok().entity(new Gson().toJson(mensagem)).cookie(cookie).build();

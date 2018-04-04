@@ -39,7 +39,7 @@ public class RecursoUsuario {
 		ServicoEmail.enviaEmail(template, usuario.getEmail(), "Este é seu primeiro acesso ao LAB510");
 		
 		SenhaDao.salvaSenhaNaBase(new Login(idUsuario, 
-				usuario.getEmail(), 
+				usuario.getCpf(), 
 				Gerator.gerarHash(senhaProvisoria)));
 		
 		URI url = URI.create("lab510/v1/usuario/" + idUsuario);

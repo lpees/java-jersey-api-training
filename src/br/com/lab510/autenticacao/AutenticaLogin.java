@@ -4,12 +4,12 @@ import br.com.lab510.dao.SenhaDao;
 
 public class AutenticaLogin {
 	
-	public static boolean verificaSenha (long id, String senha) {
+	public static boolean verificaSenha (long cpf, String senha) {
 		
 		boolean autenticacao;
 		
 		String senhaDigitada = Gerator.gerarHash(senha);
-		String senhaNaBase = SenhaDao.buscaSenhaNaBase(id);
+		String senhaNaBase = SenhaDao.buscaSenhaNaBase(cpf);
 		
 		if(senhaDigitada.equals(senhaNaBase)) {
 			autenticacao = true;
