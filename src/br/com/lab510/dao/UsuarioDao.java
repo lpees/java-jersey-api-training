@@ -1,17 +1,15 @@
-package br.com.lab510.dados;
+package br.com.lab510.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
 import br.com.lab510.modelos.Usuario;
 
 public class UsuarioDao {
 
 	public void salvaUsuarioNaBase(Usuario usuario) {
-		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		Connection conexaoMysql = Conexoes.abreConexaoComOBanco();
 
 		try {
 			conexaoMysql.setAutoCommit(false);
@@ -28,8 +26,9 @@ public class UsuarioDao {
 			inserir.setLong(4, usuario.getCpf());
 
 			inserir.executeUpdate();
-
+			
 			conexaoMysql.commit();
+			
 		} catch (SQLException e) {
 			try {
 				conexaoMysql.rollback();
@@ -45,10 +44,11 @@ public class UsuarioDao {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 	
 	public static Long buscaIdDoUsuarioNaBase(Long cpf){
-		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		Connection conexaoMysql = Conexoes.abreConexaoComOBanco();
 		
 		try {
 			conexaoMysql.setAutoCommit(false);
@@ -82,7 +82,7 @@ public class UsuarioDao {
 	}
 	
 	public static Usuario buscaUsuarioNaBase (Long id) {
-		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		Connection conexaoMysql = Conexoes.abreConexaoComOBanco();
 		
 		try {
 			conexaoMysql.setAutoCommit(false);
@@ -124,7 +124,7 @@ public class UsuarioDao {
 	}
 	
 	public static void deletaUsuarioDaBase (long id) {
-		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		Connection conexaoMysql = Conexoes.abreConexaoComOBanco();
 		
 		try {
 			conexaoMysql.setAutoCommit(false);
@@ -156,7 +156,7 @@ public class UsuarioDao {
 	}
 	
 	public void atualizaUsuarioNaBase (Long id, Usuario usuario) {
-		Connection conexaoMysql = Conexao.abreConexaoComOBanco();
+		Connection conexaoMysql = Conexoes.abreConexaoComOBanco();
 		
 		try {
 			conexaoMysql.setAutoCommit(false);
