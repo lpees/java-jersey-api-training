@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.lab510.modelos.Login;
+import br.com.lab510.models.Authentication;
 
-public class TokenDao {
+public class AuthenticationDao {
 	
 	public static void salvaTokenNaBase(String token) {
 
-		Connection conn = Conexoes.abreConexaoComOBanco();
+		Connection conn = ConnectionFactory.openConnection();
 
 		try {
 			conn.setAutoCommit(false);
 			StringBuilder sql = new StringBuilder();
 
-			sql.append("INSERT INTO TOKEN(");
+			sql.append("INSERT INTO AUTHENTICATION(");
 			sql.append("TOKEN)");
 			sql.append("VALUES (?)");
 
@@ -51,14 +51,14 @@ public class TokenDao {
 	}
 	
 	public static String buscaTokenNaBase (long idUsuario) {
-		Connection conn = Conexoes.abreConexaoComOBanco();
+		Connection conn = ConnectionFactory.openConnection();
 		StringBuilder sql = new StringBuilder();
 		
 		try {
 			conn.setAutoCommit(false);
 			sql.append("SELECT * ");
-			sql.append("FROM TOKEN ");
-			sql.append("WHERE IDUSUARIO = ? ");
+			sql.append("FROM AUTHENTICATION ");
+			sql.append("WHERE TOKEN = ? ");
 			
 			PreparedStatement consultar = conn.prepareStatement(sql.toString());
 			consultar.setLong(1, idUsuario);

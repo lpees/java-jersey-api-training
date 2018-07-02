@@ -4,22 +4,20 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
 
-import br.com.lab510.autenticacao.Gerator;
-import br.com.lab510.manipulador.ArquivoGenerico;
-import br.com.lab510.manipulador.Texto;
+import br.com.lab510.manipulator.FileManipulator;
 
-public class ServicoEmail {
+public class EmailService {
 	
-	public static void enviaEmail(String conteudo, String destinatario, String assunto) {
+	public static void sendEmail(String content, String to, String subject) {
 		
 		HtmlEmail email = configHtmlEmail();
 
 		try {
 			
-			email.addTo(destinatario, "Novo cliente - LAB510");
-			email.setFrom("leolopes4@gmail.com", "Equipe LAB510");
-			email.setSubject(assunto);
-			email.setHtmlMsg(conteudo);			
+			email.addTo(to, "New account - LAB510");
+			email.setFrom("leolopes4@gmail.com", "Team LAB510");
+			email.setSubject(subject);
+			email.setHtmlMsg(content);			
 			email.send();
 			
 		} catch (Exception e) {
@@ -54,15 +52,15 @@ public class ServicoEmail {
 		return email;
 	}
 	
-	public static String pegaTemplate (String conteudo) {
+	public static String getEmailTemplate (String content) {
 		String template = null;
-		ArquivoGenerico arquivo = new ArquivoGenerico();
+		FileManipulator archive = new FileManipulator();
 		
-		if("senha_provisoria".equals(conteudo)) {
-			template = arquivo.leArquivo("template_senha_provisoria.html");
+		if("senha_provisoria".equals(content)) {
+			template = archive.readFile("template_senha_provisoria.html");
 			
-		}else if ("evento_callback".equals(conteudo)) {
-			template = arquivo.leArquivo("template_evento_callback.html");
+		}else if ("evento_callback".equals(content)) {
+			template = archive.readFile("template_evento_callback.html");
 		}
 		
 		return template;

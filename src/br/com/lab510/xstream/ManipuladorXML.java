@@ -2,7 +2,7 @@ package br.com.lab510.xstream;
 
 import com.thoughtworks.xstream.XStream;
 
-import br.com.lab510.modelos.Request;
+import br.com.lab510.models.Request;
 
 public class ManipuladorXML {
 	

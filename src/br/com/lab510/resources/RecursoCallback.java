@@ -1,4 +1,4 @@
-package br.com.lab510.recursos;
+package br.com.lab510.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -8,8 +8,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
-import br.com.lab510.email.ServicoEmail;
-import br.com.lab510.manipulador.Texto;
+import br.com.lab510.email.EmailService;
+import br.com.lab510.manipulator.Text;
 import br.com.lab510.xstream.ManipuladorXML;
 
 
@@ -22,8 +22,8 @@ public class RecursoCallback {
 	public static String recebeConteudo (String conteudo) {
 		
 		String jsonResponse = new Gson().toJson(ManipuladorXML.formataXmlParaObj(conteudo));
-		String template = Texto.localizarSubstituir(ServicoEmail.pegaTemplate("evento_callback"), "{#conteudo}", jsonResponse);
-		ServicoEmail.enviaEmail(template, "leolopes4@gmail.com", "Você recebeu um novo evento de notificação");
+		String template = Text.replaceWords(EmailService.getEmailTemplate("evento_callback"), "{#conteudo}", jsonResponse);
+		EmailService.sendEmail(template, "leolopes4@gmail.com", "Você recebeu um novo evento de notificação");
 		
 	return jsonResponse;
 	}	

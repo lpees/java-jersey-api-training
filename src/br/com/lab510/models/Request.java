@@ -1,4 +1,4 @@
-package br.com.lab510.modelos;
+package br.com.lab510.models;
 
 public class Request {
 

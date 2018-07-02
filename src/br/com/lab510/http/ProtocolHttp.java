@@ -16,55 +16,52 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.google.gson.GsonBuilder;
 
-public class ProtocoloHttp {
+public class ProtocolHttp {
 	
 	private static HttpClient httpClient;
 
-	public static HttpResponse enviaPost (Object obj, String url) throws ClientProtocolException, IOException {
+	public static HttpResponse doPost (Object obj, String url) throws ClientProtocolException, IOException {
 
 		HttpPost configReq = new HttpPost(url);
 
 		httpClient = HttpClientBuilder.create().build();
 		configReq.addHeader("Content-Type", "application/json");
-
 		configReq.setEntity(new StringEntity(new GsonBuilder().create().toJson(obj)));
 
 		return httpClient.execute(configReq);
 	}
 	
-	public static HttpResponse enviaGet (String url) {
+	public static HttpResponse doGet (String url) {
+		
 		HttpGet configReq = null;
-		HttpResponse resposta = null;
+		HttpResponse response = null;
 		
 		try {
 			configReq = new HttpGet(url);
-
 			httpClient = HttpClientBuilder.create().build();
 			configReq.addHeader("Content-Type", "application/json");
-			resposta = httpClient.execute(configReq);
-			
+			response = httpClient.execute(configReq);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return resposta;
+		return response;
 	}
 
-	public static String pegaResposta(HttpResponse resposta) throws UnsupportedOperationException, IOException {
+	public static String getResponse(HttpResponse response) throws UnsupportedOperationException, IOException {
 
-		StringBuilder contResposta = new StringBuilder();
+		StringBuilder contentResponse = new StringBuilder();
 
-		HttpEntity configResposta = resposta.getEntity();
-		InputStream is = configResposta.getContent();
-
-		BufferedReader leitor = new BufferedReader(new InputStreamReader(is));
-		String linhaAtual;
-
-		while ((linhaAtual = leitor.readLine()) != null) {
-			contResposta.append(linhaAtual);
+		HttpEntity configResponse = response.getEntity();
+		InputStream is = configResponse.getContent();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		
+		String line;
+		while ((line = reader.readLine()) != null) {
+			contentResponse.append(line);
 		}
 
-		return contResposta.toString();
+		return contentResponse.toString();
 
 	}
 }
